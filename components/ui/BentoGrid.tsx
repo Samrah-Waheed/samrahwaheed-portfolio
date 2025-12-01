@@ -48,7 +48,7 @@ export const BentoGridItem: React.FC<BentoGridItemProps> = ({
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText("hsu@jsmastery.pro");
+    navigator.clipboard.writeText("samrahwaheed848@gmail.com");
     setCopied(true);
   };
 
