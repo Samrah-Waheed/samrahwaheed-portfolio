@@ -18,17 +18,18 @@ const Footer = () => {
           Reach out to me today and let's discuss how I can help you achieve your goals.
         </p>
 
-        <a
-          href="mailto:samrahwaheed848@gmail.com?subject=New%20Project%20Inquiry&body=Hello%20Samrah,%0D%0A%0D%0AI would like to discuss a new project with you.%0D%0A%0D%0ARegards,"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <MagicButton
-            title="Let's get in touch"
-            icon={<FaLocationArrow />}
-            position="right"
-          />
-        </a>
+        {/* Glowing button with email click */}
+        <MagicButton
+          title="Let's get in touch"
+          icon={<FaLocationArrow />}
+          position="right"
+          handleClick={() =>
+            window.open(
+              "mailto:samrahwaheed848@gmail.com?subject=New%20Project%20Inquiry&body=Hello%20Samrah,%0D%0A%0D%0AI would like to discuss a new project with you.%0D%0A%0D%0ARegards,",
+              "_blank"
+            )
+          }
+        />
       </div>
 
       <div className="flex mt-16 md:flex-row flex-col justify-between items-center">
