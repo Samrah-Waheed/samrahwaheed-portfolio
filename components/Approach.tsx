@@ -1,36 +1,50 @@
-"use client";
-
 import React from "react";
-import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { AnimatePresence, motion } from "framer-motion";
+import { CanvasRevealEffect } from "./ui/CanvasRevealEffect";
 
 const Approach = () => {
-  const items = [
-    {
-      title: "Brainstorming & Idea Mapping",
-      des: "I start by understanding the project needs and mapping out ideas clearly.",
-      icon: <IoMdCheckmarkCircleOutline size={30} />,
-    },
-    {
-      title: "Clean & Modern Development",
-      des: "I design and build clean, modern, and fully responsive interfaces.",
-      icon: <IoMdCheckmarkCircleOutline size={30} />,
-    },
-    {
-      title: "Testing & Final Delivery",
-      des: "I test the project carefully before delivering it with full quality.",
-      icon: <IoMdCheckmarkCircleOutline size={30} />,
-    },
-  ];
-
   return (
-    <section className="py-20 container mx-auto">
-      <h2 className="text-4xl font-bold text-center mb-10">My Approach</h2>
-      <div className="grid md:grid-cols-3 gap-6">
-        {items.map((item, index) => (
-          <Card key={index} title={item.title} icon={item.icon} des={item.des}>
-            {item.des}
-          </Card>
-        ))}
+    <section className="w-full py-20">
+      <h1 className="heading">
+        My <span className="text-purple">approach</span>
+      </h1>
+
+      <div className="my-20 flex flex-col lg:flex-row items-center justify-center w-full gap-4">
+        <Card
+          title="Planning & Strategy"
+          icon={<AceternityIcon order="Phase 1" />}
+          des="We'll discuss your project vision, target audience, and required features. I'll outline the structure, navigation, and core UI/UX elements needed to build a smooth and modern front-end experience."
+        >
+          <CanvasRevealEffect
+            animationSpeed={5.1}
+            containerClassName="bg-emerald-900 rounded-3xl overflow-hidden"
+          />
+        </Card>
+
+        <Card
+          title="Development & Progress Update"
+          icon={<AceternityIcon order="Phase 2" />}
+          des="Once the plan is set, I start coding the front-end with clean, responsive layouts. I share updates regularly, from early UI sketches to polished interactive components, so you stay involved at every step."
+        >
+          <CanvasRevealEffect
+            animationSpeed={3}
+            containerClassName="bg-pink-900 rounded-3xl overflow-hidden"
+            colors={[[255, 166, 158], [221, 255, 247]]}
+            dotSize={2}
+          />
+        </Card>
+
+        <Card
+          title="Development & Launch"
+          icon={<AceternityIcon order="Phase 3" />}
+          des="This is where the final build comes together. I convert the approved design into fast, responsive, and functional front-end code — ensuring your website works perfectly across all devices before launch."
+        >
+          <CanvasRevealEffect
+            animationSpeed={3}
+            containerClassName="bg-sky-600 rounded-3xl overflow-hidden"
+            colors={[[125, 211, 252]]}
+          />
+        </Card>
       </div>
     </section>
   );
@@ -38,12 +52,82 @@ const Approach = () => {
 
 export default Approach;
 
-const Card = ({ title, icon, des }: any) => {
+const Card = ({ title, icon, children, des }: any) => {
+  const [hovered, setHovered] = React.useState(false);
+
   return (
-    <div className="p-6 bg-black/20 border border-white/20 rounded-xl hover:bg-black/30 transition">
-      <div className="mb-4">{icon}</div>
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-white/70">{des}</p>
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="border border-black/[0.2] group/canvas-card flex items-center justify-center
+        dark:border-white/[0.2] max-w-sm w-full mx-auto p-4 relative lg:h-[35rem] rounded-3xl
+        bg-gradient-to-r from-slate-900 to-slate-800"
+    >
+      {[...Array(4)].map((_, i) => (
+        <Icon
+          key={i}
+          className="absolute h-10 w-10 dark:text-white text-black opacity-30"
+          style={{
+            top: i < 2 ? "-0.75rem" : "auto",
+            bottom: i >= 2 ? "-0.75rem" : "auto",
+            left: i % 2 === 0 ? "-0.75rem" : "auto",
+            right: i % 2 === 1 ? "-0.75rem" : "auto",
+          }}
+        />
+      ))}
+
+      <AnimatePresence>
+        {hovered && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="h-full w-full absolute inset-0"
+          >
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="relative z-20 px-10">
+        <div
+          className="text-center group-hover/canvas-card:-translate-y-4 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]
+            group-hover/canvas-card:opacity-0 transition duration-200 flex items-center justify-center"
+        >
+          {icon}
+        </div>
+
+        <h2 className="text-center text-3xl opacity-0 group-hover/canvas-card:opacity-100 relative z-10 text-black mt-4 font-bold
+          group-hover/canvas-card:text-white group-hover/canvas-card:-translate-y-2 transition duration-200">
+          {title}
+        </h2>
+
+        <p
+          className="text-sm opacity-0 group-hover/canvas-card:opacity-100 relative z-10 mt-4 group-hover/canvas-card:text-white text-center
+            group-hover/canvas-card:-translate-y-2 transition duration-200"
+          style={{ color: "#E4ECFF" }}
+        >
+          {des}
+        </p>
+      </div>
     </div>
   );
 };
+
+const AceternityIcon = ({ order }: { order: string }) => (
+  <button className="relative inline-flex overflow-hidden rounded-full p-[1px]">
+    <span className="absolute inset-[-1000%] animate-spin
+       bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]"
+    />
+    <span className="inline-flex h-full w-full cursor-pointer items-center
+       justify-center rounded-full bg-slate-950 px-5 py-2 text-purple backdrop-blur-3xl font-bold text-2xl"
+    >
+      {order}
+    </span>
+  </button>
+);
+
+export const Icon = ({ className, ...rest }: any) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={className} {...rest}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+  </svg>
+);

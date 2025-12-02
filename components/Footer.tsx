@@ -3,11 +3,6 @@ import { socialMedia } from "@/data";
 import MagicButton from "./MagicButton";
 
 const Footer = () => {
-  const openEmail = () => {
-    window.location.href =
-      "mailto:samrahwaheed848@gmail.com?subject=New%20Project%20Inquiry&body=Hello%20Samrah,%0D%0A%0D%0AI would like to discuss a new project with you.%0D%0A%0D%0ARegards,";
-  };
-
   return (
     <footer className="w-full pt-20 pb-10" id="contact">
       <div className="w-full absolute left-0 -bottom-72 min-h-96">
@@ -16,22 +11,24 @@ const Footer = () => {
 
       <div className="flex flex-col items-center">
         <h1 className="heading lg:max-w-[45vw]">
-          Ready to take <span className="text-purple">your</span> digital
-          presence to the next level?
+          Ready to take <span className="text-purple">your</span> digital presence to the next level?
         </h1>
 
         <p className="text-white-200 md:mt-10 my-5 text-center">
-          Reach out to me today and let&apos;s discuss how I can help you
-          achieve your goals.
+          Reach out to me today and let's discuss how I can help you achieve your goals.
         </p>
 
-        <div onClick={openEmail} className="cursor-pointer">
+        <a
+          href="mailto:samrahwaheed848@gmail.com?subject=New%20Project%20Inquiry&body=Hello%20Samrah,%0D%0A%0D%0AI would like to discuss a new project with you.%0D%0A%0D%0ARegards,"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <MagicButton
             title="Let's get in touch"
             icon={<FaLocationArrow />}
             position="right"
           />
-        </div>
+        </a>
       </div>
 
       <div className="flex mt-16 md:flex-row flex-col justify-between items-center">
